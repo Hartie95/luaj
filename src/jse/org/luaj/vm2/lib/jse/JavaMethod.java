@@ -23,6 +23,7 @@ package org.luaj.vm2.lib.jse;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,10 +60,12 @@ class JavaMethod extends JavaMember {
 	}
 	
 	final Method method;
+	boolean isstatic;
 	
 	private JavaMethod(Method m) {
 		super( m.getParameterTypes(), m.getModifiers() );
 		this.method = m;
+		this.isstatic = Modifier.isStatic(m.getModifiers());
 		try {
 			if (!m.isAccessible())
 				m.setAccessible(true);
@@ -71,23 +74,26 @@ class JavaMethod extends JavaMember {
 	}
 
 	public LuaValue call() {
-		return error("method cannot be called without instance");
+		return isstatic ? invokeMethod(null, LuaValue.NONE) : error("method cannot be called without instance");
 	}
 
 	public LuaValue call(LuaValue arg) {
-		return invokeMethod(arg.checkuserdata(), LuaValue.NONE);
+		return isstatic ? invokeMethod(null, arg) :
+				invokeMethod(arg.checkuserdata(), LuaValue.NONE);
 	}
 
 	public LuaValue call(LuaValue arg1, LuaValue arg2) {
-		return invokeMethod(arg1.checkuserdata(), arg2);
+		return isstatic ? invokeMethod(null, LuaValue.varargsOf(arg1, arg2)) :
+				invokeMethod(arg1.checkuserdata(), arg2);
 	}
 	
 	public LuaValue call(LuaValue arg1, LuaValue arg2, LuaValue arg3) {
-		return invokeMethod(arg1.checkuserdata(), LuaValue.varargsOf(arg2, arg3));
+		return isstatic ?  invokeMethod(null, LuaValue.varargsOf(arg1, arg2, arg3)) :
+				invokeMethod(arg1.checkuserdata(), LuaValue.varargsOf(arg2, arg3));
 	}
 	
 	public Varargs invoke(Varargs args) {
-		return invokeMethod(args.checkuserdata(1), args.subargs(2));
+		return isstatic ? invokeMethod(null, args) : invokeMethod(args.checkuserdata(1), args.subargs(2));
 	}
 	
 	LuaValue invokeMethod(Object instance, Varargs args) {
