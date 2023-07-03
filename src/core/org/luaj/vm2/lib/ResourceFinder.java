@@ -56,4 +56,5 @@ public interface ResourceFinder {
 	 * @return InputStream, or null if not found. 
 	 */
 	public InputStream findResource( String filename );
+	public default boolean useRawParamString() { return false; }
 }

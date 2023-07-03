@@ -288,10 +288,14 @@ public class PackageLib extends TwoArgFunction {
 			String rep = args.optjstring(4, FILE_SEP);
 			
 			// check the path elements
+			ResourceFinder finder = globals.finder;
+			boolean useRawParamString = finder.useRawParamString();
 			int e = -1;
 			int n = path.length();
 			StringBuffer sb = null;
-			name = name.replace(sep.charAt(0), rep.charAt(0));
+			if(!useRawParamString) {
+				name = name.replace(sep.charAt(0), rep.charAt(0));
+			}
 			while ( e < n ) {
 				
 				// find next template
@@ -309,7 +313,8 @@ public class PackageLib extends TwoArgFunction {
 				}
 				
 				// try opening the file
-				InputStream is = globals.finder.findResource(filename);
+				
+				InputStream is = finder.findResource(filename);
 				if (is != null) {
 					try { is.close(); } catch ( java.io.IOException ioe ) {}
 					return valueOf(filename);
