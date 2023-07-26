@@ -1,25 +1,21 @@
 package org.luaj.vm2.lib.jse;
 
 import org.luaj.vm2.LuaValue;
-import org.luaj.vm2.lib.OsLib;
-import org.luaj.vm2.lib.jme.JmePlatform;
 
 import junit.framework.TestCase;
 
 public class OsLibTest extends TestCase {
 
-	LuaValue jme_lib;
 	LuaValue jse_lib;
 	double time;
 	
 	public void setUp() {
-		jse_lib = JsePlatform.standardGlobals().get("os");;
-		jme_lib = JmePlatform.standardGlobals().get("os");;
+		jse_lib = JsePlatform.standardGlobals().get("os");
 		time = new java.util.Date(2001-1900, 7, 23, 14, 55, 02).getTime() / 1000.0;
 	}
 
 	void t(String format, String expected) {
-		String actual = jme_lib.get("date").call(LuaValue.valueOf(format), LuaValue.valueOf(time)).tojstring();
+		String actual = jse_lib.get("date").call(LuaValue.valueOf(format), LuaValue.valueOf(time)).tojstring();
 		assertEquals(expected, actual);
 	}
 	
@@ -60,9 +56,7 @@ public class OsLibTest extends TestCase {
 	public void testJseOsGetenvForEnvVariables() {
 		LuaValue USER = LuaValue.valueOf("USER");
 		LuaValue jse_user = jse_lib.get("getenv").call(USER);
-		LuaValue jme_user = jme_lib.get("getenv").call(USER);
 		assertFalse(jse_user.isnil());
-		assertTrue(jme_user.isnil());
 		System.out.println("User: " + jse_user);
 	}
 
@@ -71,8 +65,6 @@ public class OsLibTest extends TestCase {
 		LuaValue key = LuaValue.valueOf("test.key.foo");
 		LuaValue value = LuaValue.valueOf("test.value.bar");
 		LuaValue jse_value = jse_lib.get("getenv").call(key);
-		LuaValue jme_value = jme_lib.get("getenv").call(key);
 		assertEquals(value, jse_value);
-		assertEquals(value, jme_value);
 	}
 }

@@ -1,0 +1,54 @@
+name: "Build luaj"
+on:
+  workflow_dispatch: ~
+  push:
+    paths:
+      - "**.java"
+      - "**.sh"
+      - "**.gradle"
+      - "**.properties"
+      - "**.kts"
+    branches:
+      - "master"
+      - "development"
+      - "ci"
+  pull_request:
+    paths:
+      - "**.java"
+      - "**.sh"
+      - "**.gradle"
+      - "**.properties"
+      - "**.kts"
+    types:
+      - opened
+      - synchronize
+      - reopened
+jobs:
+  BUILD-LIB:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Cache gradle files
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            ./.gradle/loom-cache
+          key: ${{ runner.os }}-gradle-${{ hashFiles('*.gradle', 'gradle.properties', '**/*.accesswidener') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Build java
+        run: ./gradlew && ./gradlew jar
+      - name: Upload jar
+        uses: actions/upload-artifact@v3
+        with:
+          name: LuaJ
+          path: build/libs/luaj-*.jar
+

@@ -51,7 +51,7 @@
 	    <pathelement path="lib/midpapi20.jar"/>
 	    <pathelement path="lib/mmapi.jar"/>
 	  </path>
-	  <javac includeantruntime="false" destdir="build/jme/classes" encoding="utf-8" source="1.8" target="1.8" bootclasspathref="wtk-libs"
+	  <javac includeantruntime="false" destdir="build/jme/classes" encoding="utf-8" source="16" target="16" sourcepath="wtk-libs"
 		 debug="on"
 		 srcdir="build/jme/src"/>
 	</target>
@@ -89,21 +89,21 @@
 	    </filterchain>
 	  </copy>
 	  
-	  <javac destdir="build/jse/classes" encoding="utf-8" source="1.8" target="1.8"
+	  <javac destdir="build/jse/classes" encoding="utf-8" source="16" target="16"
 		 classpath="lib/bcel-5.2.jar"
 		 debug="on"
 		 srcdir="build/jse/src"
 		 excludes="**/script/*,**/Lua2Java*,**/server/*,lua*"
 		 includeantruntime="false"
           />
-	  <javac destdir="build/jse/classes" encoding="utf-8" source="1.8" target="1.8"
+	  <javac destdir="build/jse/classes" encoding="utf-8" source="16" target="16"
 		 classpath="build/jse/classes"
 		 debug="on"
 		 srcdir="build/jse/src"
 		 includes="**/script/*,**/Lua2Java*,**/server/*"
 		 includeantruntime="false"
           />
-	  <javac destdir="build/jse/classes" encoding="utf-8" source="1.8" target="1.8"
+	  <javac destdir="build/jse/classes" encoding="utf-8" source="16" target="16"
 		 classpath="build/jse/classes"
 		 debug="on"
 		 srcdir="build/jse/src"

@@ -1,16 +1,16 @@
 /*******************************************************************************
  * Copyright (c) 2009-2011 Luaj.org. All rights reserved.
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,18 +22,19 @@
 package org.luaj.vm2;
 
 /**
- * Extension of {@link LuaValue} which can hold a Java boolean as its value. 
+ * Extension of {@link LuaValue} which can hold a Java boolean as its value.
  * <p>
- * These instance are not instantiated directly by clients.  
- * Instead, there are exactly twon instances of this class, 
- * {@link LuaValue#TRUE} and {@link LuaValue#FALSE} 
+ * These instance are not instantiated directly by clients.
+ * Instead, there are exactly twon instances of this class,
+ * {@link LuaValue#TRUE} and {@link LuaValue#FALSE}
  * representing the lua values {@code true} and {@code false}.
- * The function {@link LuaValue#valueOf(boolean)} will always 
- * return one of these two values. 
+ * The function {@link LuaValue#valueOf(boolean)} will always
+ * return one of these two values.
  * <p>
- * Any {@link LuaValue} can be converted to its equivalent 
+ * Any {@link LuaValue} can be converted to its equivalent
  * boolean representation using {@link LuaValue#toboolean()}
  * <p>
+ *
  * @see LuaValue
  * @see LuaValue#valueOf(boolean)
  * @see LuaValue#TRUE
@@ -41,63 +42,72 @@ package org.luaj.vm2;
  */
 public final class LuaBoolean extends LuaValue {
 
-	/** The singleton instance representing lua {@code true} */
-	static final LuaBoolean _TRUE = new LuaBoolean(true);
-	
-	/** The singleton instance representing lua {@code false} */
-	static final LuaBoolean _FALSE = new LuaBoolean(false);
-	
-	/** Shared static metatable for boolean values represented in lua. */
-	public static LuaValue s_metatable;
+    /**
+     * The singleton instance representing lua {@code true}
+     */
+    static final LuaBoolean _TRUE = new LuaBoolean(true);
 
-	/** The value of the boolean */
-	public final boolean v;
+    /**
+     * The singleton instance representing lua {@code false}
+     */
+    static final LuaBoolean _FALSE = new LuaBoolean(false);
 
-	LuaBoolean(boolean b) {
-		this.v = b;
-	}
+    /**
+     * Shared static metatable for boolean values represented in lua.
+     */
+    public static LuaValue s_metatable;
 
-	public int type() {
-		return LuaValue.TBOOLEAN;
-	}
+    /**
+     * The value of the boolean
+     */
+    public final boolean v;
 
-	public String typename() {
-		return "boolean";
-	}
+    LuaBoolean(boolean b) {
+        this.v = b;
+    }
 
-	public boolean isboolean() {
-		return true;
-	}
+    public int type() {
+        return LuaValue.TBOOLEAN;
+    }
 
-	public LuaValue not() {
-		return v ? FALSE : LuaValue.TRUE;
-	}
+    public String typename() {
+        return "boolean";
+    }
 
-	/**
-	 * Return the boolean value for this boolean
-	 * @return value as a Java boolean
-	 */
-	public boolean booleanValue() {
-		return v;
-	}
+    public boolean isboolean() {
+        return true;
+    }
 
-	public boolean toboolean() {
-		return v;
-	}
+    public LuaValue not() {
+        return v ? FALSE : LuaValue.TRUE;
+    }
 
-	public String tojstring() {
-		return v ? "true" : "false";
-	}
+    /**
+     * Return the boolean value for this boolean
+     *
+     * @return value as a Java boolean
+     */
+    public boolean booleanValue() {
+        return v;
+    }
 
-	public boolean optboolean(boolean defval) {
-		return this.v;
-	}
-	
-	public boolean checkboolean() {
-		return v;
-	}
-	
-	public LuaValue getmetatable() { 
-		return s_metatable; 
-	}
+    public boolean toboolean() {
+        return v;
+    }
+
+    public String tojstring() {
+        return v ? "true" : "false";
+    }
+
+    public boolean optboolean(boolean defval) {
+        return this.v;
+    }
+
+    public boolean checkboolean() {
+        return v;
+    }
+
+    public LuaValue getmetatable() {
+        return s_metatable;
+    }
 }

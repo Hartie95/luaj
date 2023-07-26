@@ -24,6 +24,8 @@ package org.luaj.vm2;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.junit.jupiter.api.TestInstance;
+import org.junit.platform.commons.annotation.Testable;
 import org.luaj.vm2.WeakTableTest.WeakKeyTableTest;
 import org.luaj.vm2.WeakTableTest.WeakKeyValueTableTest;
 import org.luaj.vm2.WeakTableTest.WeakValueTableTest;

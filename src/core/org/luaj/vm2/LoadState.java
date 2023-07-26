@@ -1,16 +1,16 @@
 /*******************************************************************************
 * Copyright (c) 2009 Luaj.org. All rights reserved.
-*
+* <p>
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
-*
+* <p>
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
-* 
+* <p>
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -44,8 +44,7 @@ import java.io.InputStream;
 * This should work regardless of which {@link Globals.Compiler} or {@link Globals.Undumper}
 * have been installed.
 * <p>
-* By default, when using {@link org.luaj.vm2.lib.jse.JsePlatform} or
-* {@link org.luaj.vm2.lib.jme.JmePlatform}
+* By default, when using {@link org.luaj.vm2.lib.jse.JsePlatform}
 * to construct globals, the {@link LoadState} default undumper is installed
 * as the default {@link Globals.Undumper}.
 * <p>
@@ -192,8 +191,8 @@ public class LoadState {
 		int[] array = new int[n];
 		for ( int i=0, j=0; i<n; ++i, j+=4 )
 			array[i] = luacLittleEndian?
-					(buf[j+3] << 24) | ((0xff & buf[j+2]) << 16) | ((0xff & buf[j+1]) << 8) | (0xff & buf[j+0]):
-					(buf[j+0] << 24) | ((0xff & buf[j+1]) << 16) | ((0xff & buf[j+2]) << 8) | (0xff & buf[j+3]);
+					(buf[j+3] << 24) | ((0xff & buf[j+2]) << 16) | ((0xff & buf[j+1]) << 8) | (0xff & buf[j]):
+					(buf[j] << 24) | ((0xff & buf[j+1]) << 16) | ((0xff & buf[j+2]) << 8) | (0xff & buf[j+3]);
 
 		return array;
 	}
@@ -272,24 +271,13 @@ public class LoadState {
 		int n = loadInt();
 		LuaValue[] values = n>0? new LuaValue[n]: NOVALUES;
 		for ( int i=0; i<n; i++ ) {
-			switch ( is.readByte() ) {
-			case LUA_TNIL:
-				values[i] = LuaValue.NIL;
-				break;
-			case LUA_TBOOLEAN:
-				values[i] = (0 != is.readUnsignedByte()? LuaValue.TRUE: LuaValue.FALSE);
-				break;
-			case LUA_TINT:
-				values[i] = LuaInteger.valueOf( loadInt() );
-				break;
-			case LUA_TNUMBER:
-				values[i] = loadNumber();
-				break;
-			case LUA_TSTRING:
-				values[i] = loadString();
-				break;
-			default:
-				throw new IllegalStateException("bad constant");
+			switch (is.readByte()) {
+				case LUA_TNIL -> values[i] = LuaValue.NIL;
+				case LUA_TBOOLEAN -> values[i] = (0 != is.readUnsignedByte() ? LuaValue.TRUE : LuaValue.FALSE);
+				case LUA_TINT -> values[i] = LuaInteger.valueOf(loadInt());
+				case LUA_TNUMBER -> values[i] = loadNumber();
+				case LUA_TSTRING -> values[i] = loadString();
+				default -> throw new IllegalStateException("bad constant");
 			}
 		}
 		f.k = values;

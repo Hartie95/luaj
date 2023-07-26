@@ -1,16 +1,16 @@
 /*******************************************************************************
 * Copyright (c) 2012 Luaj.org. All rights reserved.
-*
+* <p>
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
-*
+* <p>
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
-* 
+* <p>
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,8 +28,8 @@ import org.luaj.vm2.Varargs;
 /**
  * Subclass of LibFunction that implements the Lua standard {@code bit32} library.
  * <p>
- * Typically, this library is included as part of a call to either
- * {@link org.luaj.vm2.lib.jse.JsePlatform#standardGlobals()} or {@link org.luaj.vm2.lib.jme.JmePlatform#standardGlobals()}
+ * Typically, this library is included as part of a call to
+ * {@link org.luaj.vm2.lib.jse.JsePlatform#standardGlobals()}
  * <pre> {@code
  * Globals globals = JsePlatform.standardGlobals();
  * System.out.println( globals.get("bit32").get("bnot").call( LuaValue.valueOf(2) ) );
@@ -48,7 +48,6 @@ import org.luaj.vm2.Varargs;
  * This has been implemented to match as closely as possible the behavior in the corresponding library in C.
  * @see LibFunction
  * @see org.luaj.vm2.lib.jse.JsePlatform
- * @see org.luaj.vm2.lib.jme.JmePlatform
  * @see <a href="http://www.lua.org/manual/5.2/manual.html#6.7">Lua 5.2 Bitwise Operation Lib Reference</a>
  */
 public class Bit32Lib extends TwoArgFunction {
@@ -77,33 +76,31 @@ public class Bit32Lib extends TwoArgFunction {
 
 	static final class Bit32LibV extends VarArgFunction {
 		public Varargs invoke(Varargs args) {
-			switch ( opcode ) {
-			case 0: return Bit32Lib.band( args );
-			case 1: return Bit32Lib.bnot( args );
-			case 2: return Bit32Lib.bor( args );
-			case 3: return Bit32Lib.btest( args );
-			case 4: return Bit32Lib.bxor( args );
-			case 5:
-				return Bit32Lib.extract( args.checkint(1), args.checkint(2), args.optint(3, 1) );
-			case 6:
-				return Bit32Lib.replace( args.checkint(1), args.checkint(2),
-						args.checkint(3), args.optint(4, 1) );
-			}
-			return NIL;
+			return switch (opcode) {
+				case 0 -> Bit32Lib.band(args);
+				case 1 -> Bit32Lib.bnot(args);
+				case 2 -> Bit32Lib.bor(args);
+				case 3 -> Bit32Lib.btest(args);
+				case 4 -> Bit32Lib.bxor(args);
+				case 5 -> Bit32Lib.extract(args.checkint(1), args.checkint(2), args.optint(3, 1));
+				case 6 -> Bit32Lib.replace(args.checkint(1), args.checkint(2),
+						args.checkint(3), args.optint(4, 1));
+				default -> NIL;
+			};
 		}
 	}
 
 	static final class Bit32Lib2 extends TwoArgFunction {
 
 		public LuaValue call(LuaValue arg1, LuaValue arg2) {
-			switch ( opcode ) {
-			case 0: return Bit32Lib.arshift(arg1.checkint(), arg2.checkint());
-			case 1: return Bit32Lib.lrotate(arg1.checkint(), arg2.checkint());
-			case 2: return Bit32Lib.lshift(arg1.checkint(), arg2.checkint());
-			case 3: return Bit32Lib.rrotate(arg1.checkint(), arg2.checkint());
-			case 4: return Bit32Lib.rshift(arg1.checkint(), arg2.checkint());
-			}
-			return NIL;
+			return switch (opcode) {
+				case 0 -> Bit32Lib.arshift(arg1.checkint(), arg2.checkint());
+				case 1 -> Bit32Lib.lrotate(arg1.checkint(), arg2.checkint());
+				case 2 -> Bit32Lib.lshift(arg1.checkint(), arg2.checkint());
+				case 3 -> Bit32Lib.rrotate(arg1.checkint(), arg2.checkint());
+				case 4 -> Bit32Lib.rshift(arg1.checkint(), arg2.checkint());
+				default -> NIL;
+			};
 		}
 		
 	}

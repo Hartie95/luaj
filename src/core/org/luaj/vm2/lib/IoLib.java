@@ -1,16 +1,16 @@
 /*******************************************************************************
 * Copyright (c) 2009-2011 Luaj.org. All rights reserved.
-*
+* <p>
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
-*
+* <p>
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
-* 
+* <p>
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -38,15 +38,14 @@ import org.luaj.vm2.Varargs;
  * It contains the implementation of the io library support that is common to
  * the JSE and JME platforms.
  * In practice on of the concrete IOLib subclasses is chosen:
- * {@link org.luaj.vm2.lib.jse.JseIoLib} for the JSE platform, and
- * {@link org.luaj.vm2.lib.jme.JmeIoLib} for the JME platform.
+ * {@link org.luaj.vm2.lib.jse.JseIoLib} for the JSE platform
  * <p>
  * The JSE implementation conforms almost completely to the C-based lua library,
  * while the JME implementation follows closely except in the area of random-access files,
  * which are difficult to support properly on JME.
  * <p>
- * Typically, this library is included as part of a call to either
- * {@link org.luaj.vm2.lib.jse.JsePlatform#standardGlobals()} or {@link org.luaj.vm2.lib.jme.JmePlatform#standardGlobals()}
+ * Typically, this library is included as part of a call to
+ * {@link org.luaj.vm2.lib.jse.JsePlatform#standardGlobals()}
  * <pre> {@code
  * Globals globals = JsePlatform.standardGlobals();
  * globals.get("io").get("write").call(LuaValue.valueOf("hello, world\n"));
@@ -68,9 +67,7 @@ import org.luaj.vm2.Varargs;
  * This has been implemented to match as closely as possible the behavior in the corresponding library in C.
  * @see LibFunction
  * @see org.luaj.vm2.lib.jse.JsePlatform
- * @see org.luaj.vm2.lib.jme.JmePlatform
  * @see org.luaj.vm2.lib.jse.JseIoLib
- * @see org.luaj.vm2.lib.jme.JmeIoLib
  * @see <a href="http://www.lua.org/manual/5.1/manual.html#5.7">http://www.lua.org/manual/5.1/manual.html#5.7</a>
  */
 abstract
@@ -276,8 +273,7 @@ public class IoLib extends TwoArgFunction {
 
 	private void setLibInstance(LuaTable t) {
 		LuaValue[] k = t.keys();
-		for ( int i=0, n=k.length; i<n; i++ )
-			((IoLibV) t.get(k[i])).iolib = this;
+		for (LuaValue luaValue : k) ((IoLibV) t.get(luaValue)).iolib = this;
 	}
 	
 	static final class IoLibV extends VarArgFunction {
@@ -314,7 +310,7 @@ public class IoLib extends TwoArgFunction {
 				case IO_LINES:		return iolib._io_lines(args);
 				case IO_READ:		return iolib._io_read(args);
 				case IO_WRITE:		return iolib._io_write(args);
-					
+
 				case FILE_CLOSE:	return iolib._file_close(args.arg1());
 				case FILE_FLUSH:	return iolib._file_flush(args.arg1());
 				case FILE_SETVBUF:	return iolib._file_setvbuf(args.arg1(),args.checkjstring(2),args.optint(3,8192));
@@ -593,7 +589,7 @@ public class IoLib extends TwoArgFunction {
 			break;
 		}
 		if (len <= 0) argerror(2, "invalid mode: '" + mode + "'");
-		
+
 		switch (filetype) {
 		case FTYPE_STDIN: return wrapStdin();
 		case FTYPE_STDOUT: return wrapStdout();

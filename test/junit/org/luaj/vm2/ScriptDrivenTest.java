@@ -1,16 +1,16 @@
 /*******************************************************************************
  * Copyright (c) 2009 Luaj.org. All rights reserved.
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -43,7 +43,7 @@ public class ScriptDrivenTest extends TestCase implements ResourceFinder {
 	public static final boolean nocompile = "true".equals(System.getProperty("nocompile"));
 
 	public enum PlatformType {
-		JME, JSE, LUAJIT,
+		JSE, LUAJIT,
 	}
 	
 	private final PlatformType platform;
@@ -60,16 +60,7 @@ public class ScriptDrivenTest extends TestCase implements ResourceFinder {
 	}
 	
 	private void initGlobals() {
-		switch ( platform ) {
-		default:
-		case JSE:
-		case LUAJIT:
-			globals = org.luaj.vm2.lib.jse.JsePlatform.debugGlobals();
-			break;
-		case JME:
-			globals = org.luaj.vm2.lib.jme.JmePlatform.debugGlobals();
-			break;
-		}
+		globals = org.luaj.vm2.lib.jse.JsePlatform.debugGlobals();
 	}
 	
 	

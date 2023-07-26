@@ -1,16 +1,16 @@
 /*******************************************************************************
  * Copyright (c) 2009 Luaj.org. All rights reserved.
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -69,293 +69,293 @@ public class TypeTest extends TestCase {
 	// ===================== type checks =======================
 	
 	public void testIsBoolean() {
-		assertEquals( false, somenil.isboolean() );
-		assertEquals( true, sometrue.isboolean() );
-		assertEquals( true, somefalse.isboolean() );
-		assertEquals( false, zero.isboolean() );
-		assertEquals( false, intint.isboolean() );
-		assertEquals( false, longdouble.isboolean() );
-		assertEquals( false, doubledouble.isboolean() );
-		assertEquals( false, stringstring.isboolean() );
-		assertEquals( false, stringint.isboolean() );
-		assertEquals( false, stringlong.isboolean() );
-		assertEquals( false, stringdouble.isboolean() );
-		assertEquals( false, thread.isboolean() );
-		assertEquals( false, table.isboolean() );
-		assertEquals( false, userdataobj.isboolean() );
-		assertEquals( false, userdatacls.isboolean() );
-		assertEquals( false, somefunc.isboolean() );
-		assertEquals( false, someclosure.isboolean() );
+		assertFalse(somenil.isboolean());
+		assertTrue(sometrue.isboolean());
+		assertTrue(somefalse.isboolean());
+		assertFalse(zero.isboolean());
+		assertFalse(intint.isboolean());
+		assertFalse(longdouble.isboolean());
+		assertFalse(doubledouble.isboolean());
+		assertFalse(stringstring.isboolean());
+		assertFalse(stringint.isboolean());
+		assertFalse(stringlong.isboolean());
+		assertFalse(stringdouble.isboolean());
+		assertFalse(thread.isboolean());
+		assertFalse(table.isboolean());
+		assertFalse(userdataobj.isboolean());
+		assertFalse(userdatacls.isboolean());
+		assertFalse(somefunc.isboolean());
+		assertFalse(someclosure.isboolean());
 	}
 	
 	public void testIsClosure() {
-		assertEquals( false, somenil.isclosure() );
-		assertEquals( false, sometrue.isclosure() );
-		assertEquals( false, somefalse.isclosure() );
-		assertEquals( false, zero.isclosure() );
-		assertEquals( false, intint.isclosure() );
-		assertEquals( false, longdouble.isclosure() );
-		assertEquals( false, doubledouble.isclosure() );
-		assertEquals( false, stringstring.isclosure() );
-		assertEquals( false, stringint.isclosure() );
-		assertEquals( false, stringlong.isclosure() );
-		assertEquals( false, stringdouble.isclosure() );
-		assertEquals( false, thread.isclosure() );
-		assertEquals( false, table.isclosure() );
-		assertEquals( false, userdataobj.isclosure() );
-		assertEquals( false, userdatacls.isclosure() );
-		assertEquals( false, somefunc.isclosure() );
-		assertEquals( true, someclosure.isclosure() );
+		assertFalse(somenil.isclosure());
+		assertFalse(sometrue.isclosure());
+		assertFalse(somefalse.isclosure());
+		assertFalse(zero.isclosure());
+		assertFalse(intint.isclosure());
+		assertFalse(longdouble.isclosure());
+		assertFalse(doubledouble.isclosure());
+		assertFalse(stringstring.isclosure());
+		assertFalse(stringint.isclosure());
+		assertFalse(stringlong.isclosure());
+		assertFalse(stringdouble.isclosure());
+		assertFalse(thread.isclosure());
+		assertFalse(table.isclosure());
+		assertFalse(userdataobj.isclosure());
+		assertFalse(userdatacls.isclosure());
+		assertFalse(somefunc.isclosure());
+		assertTrue(someclosure.isclosure());
 	}
 
 	
 	public void testIsFunction() {
-		assertEquals( false, somenil.isfunction() );
-		assertEquals( false, sometrue.isfunction() );
-		assertEquals( false, somefalse.isfunction() );
-		assertEquals( false, zero.isfunction() );
-		assertEquals( false, intint.isfunction() );
-		assertEquals( false, longdouble.isfunction() );
-		assertEquals( false, doubledouble.isfunction() );
-		assertEquals( false, stringstring.isfunction() );
-		assertEquals( false, stringint.isfunction() );
-		assertEquals( false, stringlong.isfunction() );
-		assertEquals( false, stringdouble.isfunction() );
-		assertEquals( false, thread.isfunction() );
-		assertEquals( false, table.isfunction() );
-		assertEquals( false, userdataobj.isfunction() );
-		assertEquals( false, userdatacls.isfunction() );
-		assertEquals( true, somefunc.isfunction() );
-		assertEquals( true, someclosure.isfunction() );
+		assertFalse(somenil.isfunction());
+		assertFalse(sometrue.isfunction());
+		assertFalse(somefalse.isfunction());
+		assertFalse(zero.isfunction());
+		assertFalse(intint.isfunction());
+		assertFalse(longdouble.isfunction());
+		assertFalse(doubledouble.isfunction());
+		assertFalse(stringstring.isfunction());
+		assertFalse(stringint.isfunction());
+		assertFalse(stringlong.isfunction());
+		assertFalse(stringdouble.isfunction());
+		assertFalse(thread.isfunction());
+		assertFalse(table.isfunction());
+		assertFalse(userdataobj.isfunction());
+		assertFalse(userdatacls.isfunction());
+		assertTrue(somefunc.isfunction());
+		assertTrue(someclosure.isfunction());
 	}
 
 	
 	public void testIsInt() {
-		assertEquals( false, somenil.isint() );
-		assertEquals( false, sometrue.isint() );
-		assertEquals( false, somefalse.isint() );
-		assertEquals( true, zero.isint() );
-		assertEquals( true, intint.isint() );
-		assertEquals( false, longdouble.isint() );
-		assertEquals( false, doubledouble.isint() );
-		assertEquals( false, stringstring.isint() );
-		assertEquals( true, stringint.isint() );
-		assertEquals( false, stringdouble.isint() );
-		assertEquals( false, thread.isint() );
-		assertEquals( false, table.isint() );
-		assertEquals( false, userdataobj.isint() );
-		assertEquals( false, userdatacls.isint() );
-		assertEquals( false, somefunc.isint() );
-		assertEquals( false, someclosure.isint() );
+		assertFalse(somenil.isint());
+		assertFalse(sometrue.isint());
+		assertFalse(somefalse.isint());
+		assertTrue(zero.isint());
+		assertTrue(intint.isint());
+		assertFalse(longdouble.isint());
+		assertFalse(doubledouble.isint());
+		assertFalse(stringstring.isint());
+		assertTrue(stringint.isint());
+		assertFalse(stringdouble.isint());
+		assertFalse(thread.isint());
+		assertFalse(table.isint());
+		assertFalse(userdataobj.isint());
+		assertFalse(userdatacls.isint());
+		assertFalse(somefunc.isint());
+		assertFalse(someclosure.isint());
 	}
 
 	public void testIsIntType() {
-		assertEquals( false, somenil.isinttype() );
-		assertEquals( false, sometrue.isinttype() );
-		assertEquals( false, somefalse.isinttype() );
-		assertEquals( true, zero.isinttype() );
-		assertEquals( true, intint.isinttype() );
-		assertEquals( false, longdouble.isinttype() );
-		assertEquals( false, doubledouble.isinttype() );
-		assertEquals( false, stringstring.isinttype() );
-		assertEquals( false, stringint.isinttype() );
-		assertEquals( false, stringlong.isinttype() );
-		assertEquals( false, stringdouble.isinttype() );
-		assertEquals( false, thread.isinttype() );
-		assertEquals( false, table.isinttype() );
-		assertEquals( false, userdataobj.isinttype() );
-		assertEquals( false, userdatacls.isinttype() );
-		assertEquals( false, somefunc.isinttype() );
-		assertEquals( false, someclosure.isinttype() );
+		assertFalse(somenil.isinttype());
+		assertFalse(sometrue.isinttype());
+		assertFalse(somefalse.isinttype());
+		assertTrue(zero.isinttype());
+		assertTrue(intint.isinttype());
+		assertFalse(longdouble.isinttype());
+		assertFalse(doubledouble.isinttype());
+		assertFalse(stringstring.isinttype());
+		assertFalse(stringint.isinttype());
+		assertFalse(stringlong.isinttype());
+		assertFalse(stringdouble.isinttype());
+		assertFalse(thread.isinttype());
+		assertFalse(table.isinttype());
+		assertFalse(userdataobj.isinttype());
+		assertFalse(userdatacls.isinttype());
+		assertFalse(somefunc.isinttype());
+		assertFalse(someclosure.isinttype());
 	}
 
 	public void testIsLong() {
-		assertEquals( false, somenil.islong() );
-		assertEquals( false, sometrue.islong() );
-		assertEquals( false, somefalse.islong() );
-		assertEquals( true, intint.isint() );
-		assertEquals( true, longdouble.islong() );
-		assertEquals( false, doubledouble.islong() );
-		assertEquals( false, stringstring.islong() );
-		assertEquals( true, stringint.islong() );
-		assertEquals( true, stringlong.islong() );
-		assertEquals( false, stringdouble.islong() );
-		assertEquals( false, thread.islong() );
-		assertEquals( false, table.islong() );
-		assertEquals( false, userdataobj.islong() );
-		assertEquals( false, userdatacls.islong() );
-		assertEquals( false, somefunc.islong() );
-		assertEquals( false, someclosure.islong() );
+		assertFalse(somenil.islong());
+		assertFalse(sometrue.islong());
+		assertFalse(somefalse.islong());
+		assertTrue(intint.isint());
+		assertTrue(longdouble.islong());
+		assertFalse(doubledouble.islong());
+		assertFalse(stringstring.islong());
+		assertTrue(stringint.islong());
+		assertTrue(stringlong.islong());
+		assertFalse(stringdouble.islong());
+		assertFalse(thread.islong());
+		assertFalse(table.islong());
+		assertFalse(userdataobj.islong());
+		assertFalse(userdatacls.islong());
+		assertFalse(somefunc.islong());
+		assertFalse(someclosure.islong());
 	}
 
 	public void testIsNil() {
-		assertEquals( true, somenil.isnil() );
-		assertEquals( false, sometrue.isnil() );
-		assertEquals( false, somefalse.isnil() );
-		assertEquals( false, zero.isnil() );
-		assertEquals( false, intint.isnil() );
-		assertEquals( false, longdouble.isnil() );
-		assertEquals( false, doubledouble.isnil() );
-		assertEquals( false, stringstring.isnil() );
-		assertEquals( false, stringint.isnil() );
-		assertEquals( false, stringlong.isnil() );
-		assertEquals( false, stringdouble.isnil() );
-		assertEquals( false, thread.isnil() );
-		assertEquals( false, table.isnil() );
-		assertEquals( false, userdataobj.isnil() );
-		assertEquals( false, userdatacls.isnil() );
-		assertEquals( false, somefunc.isnil() );
-		assertEquals( false, someclosure.isnil() );
+		assertTrue(somenil.isnil());
+		assertFalse(sometrue.isnil());
+		assertFalse(somefalse.isnil());
+		assertFalse(zero.isnil());
+		assertFalse(intint.isnil());
+		assertFalse(longdouble.isnil());
+		assertFalse(doubledouble.isnil());
+		assertFalse(stringstring.isnil());
+		assertFalse(stringint.isnil());
+		assertFalse(stringlong.isnil());
+		assertFalse(stringdouble.isnil());
+		assertFalse(thread.isnil());
+		assertFalse(table.isnil());
+		assertFalse(userdataobj.isnil());
+		assertFalse(userdatacls.isnil());
+		assertFalse(somefunc.isnil());
+		assertFalse(someclosure.isnil());
 	}
 
 	public void testIsNumber() {
-		assertEquals( false, somenil.isnumber() );
-		assertEquals( false, sometrue.isnumber() );
-		assertEquals( false, somefalse.isnumber() );
-		assertEquals( true, zero.isnumber() );
-		assertEquals( true, intint.isnumber() );
-		assertEquals( true, longdouble.isnumber() );
-		assertEquals( true, doubledouble.isnumber() );
-		assertEquals( false, stringstring.isnumber() );
-		assertEquals( true, stringint.isnumber() );
-		assertEquals( true, stringlong.isnumber() );
-		assertEquals( true, stringdouble.isnumber() );
-		assertEquals( false, thread.isnumber() );
-		assertEquals( false, table.isnumber() );
-		assertEquals( false, userdataobj.isnumber() );
-		assertEquals( false, userdatacls.isnumber() );
-		assertEquals( false, somefunc.isnumber() );
-		assertEquals( false, someclosure.isnumber() );
+		assertFalse(somenil.isnumber());
+		assertFalse(sometrue.isnumber());
+		assertFalse(somefalse.isnumber());
+		assertTrue(zero.isnumber());
+		assertTrue(intint.isnumber());
+		assertTrue(longdouble.isnumber());
+		assertTrue(doubledouble.isnumber());
+		assertFalse(stringstring.isnumber());
+		assertTrue(stringint.isnumber());
+		assertTrue(stringlong.isnumber());
+		assertTrue(stringdouble.isnumber());
+		assertFalse(thread.isnumber());
+		assertFalse(table.isnumber());
+		assertFalse(userdataobj.isnumber());
+		assertFalse(userdatacls.isnumber());
+		assertFalse(somefunc.isnumber());
+		assertFalse(someclosure.isnumber());
 	}
 
 	public void testIsString() {
-		assertEquals( false, somenil.isstring() );
-		assertEquals( false, sometrue.isstring() );
-		assertEquals( false, somefalse.isstring() );
-		assertEquals( true, zero.isstring() );
-		assertEquals( true, longdouble.isstring() );
-		assertEquals( true, doubledouble.isstring() );
-		assertEquals( true, stringstring.isstring() );
-		assertEquals( true, stringint.isstring() );
-		assertEquals( true, stringlong.isstring() );
-		assertEquals( true, stringdouble.isstring() );
-		assertEquals( false, thread.isstring() );
-		assertEquals( false, table.isstring() );
-		assertEquals( false, userdataobj.isstring() );
-		assertEquals( false, userdatacls.isstring() );
-		assertEquals( false, somefunc.isstring() );
-		assertEquals( false, someclosure.isstring() );
+		assertFalse(somenil.isstring());
+		assertFalse(sometrue.isstring());
+		assertFalse(somefalse.isstring());
+		assertTrue(zero.isstring());
+		assertTrue(longdouble.isstring());
+		assertTrue(doubledouble.isstring());
+		assertTrue(stringstring.isstring());
+		assertTrue(stringint.isstring());
+		assertTrue(stringlong.isstring());
+		assertTrue(stringdouble.isstring());
+		assertFalse(thread.isstring());
+		assertFalse(table.isstring());
+		assertFalse(userdataobj.isstring());
+		assertFalse(userdatacls.isstring());
+		assertFalse(somefunc.isstring());
+		assertFalse(someclosure.isstring());
 	}
 
 	public void testIsThread() {
-		assertEquals( false, somenil.isthread() );
-		assertEquals( false, sometrue.isthread() );
-		assertEquals( false, somefalse.isthread() );
-		assertEquals( false, intint.isthread() );
-		assertEquals( false, longdouble.isthread() );
-		assertEquals( false, doubledouble.isthread() );
-		assertEquals( false, stringstring.isthread() );
-		assertEquals( false, stringint.isthread() );
-		assertEquals( false, stringdouble.isthread() );
-		assertEquals( true, thread.isthread() );
-		assertEquals( false, table.isthread() );
-		assertEquals( false, userdataobj.isthread() );
-		assertEquals( false, userdatacls.isthread() );
-		assertEquals( false, somefunc.isthread() );
-		assertEquals( false, someclosure.isthread() );
+		assertFalse(somenil.isthread());
+		assertFalse(sometrue.isthread());
+		assertFalse(somefalse.isthread());
+		assertFalse(intint.isthread());
+		assertFalse(longdouble.isthread());
+		assertFalse(doubledouble.isthread());
+		assertFalse(stringstring.isthread());
+		assertFalse(stringint.isthread());
+		assertFalse(stringdouble.isthread());
+		assertTrue(thread.isthread());
+		assertFalse(table.isthread());
+		assertFalse(userdataobj.isthread());
+		assertFalse(userdatacls.isthread());
+		assertFalse(somefunc.isthread());
+		assertFalse(someclosure.isthread());
 	}
 
 	public void testIsTable() {
-		assertEquals( false, somenil.istable() );
-		assertEquals( false, sometrue.istable() );
-		assertEquals( false, somefalse.istable() );
-		assertEquals( false, intint.istable() );
-		assertEquals( false, longdouble.istable() );
-		assertEquals( false, doubledouble.istable() );
-		assertEquals( false, stringstring.istable() );
-		assertEquals( false, stringint.istable() );
-		assertEquals( false, stringdouble.istable() );
-		assertEquals( false, thread.istable() );
-		assertEquals( true, table.istable() );
-		assertEquals( false, userdataobj.istable() );
-		assertEquals( false, userdatacls.istable() );
-		assertEquals( false, somefunc.istable() );
-		assertEquals( false, someclosure.istable() );
+		assertFalse(somenil.istable());
+		assertFalse(sometrue.istable());
+		assertFalse(somefalse.istable());
+		assertFalse(intint.istable());
+		assertFalse(longdouble.istable());
+		assertFalse(doubledouble.istable());
+		assertFalse(stringstring.istable());
+		assertFalse(stringint.istable());
+		assertFalse(stringdouble.istable());
+		assertFalse(thread.istable());
+		assertTrue(table.istable());
+		assertFalse(userdataobj.istable());
+		assertFalse(userdatacls.istable());
+		assertFalse(somefunc.istable());
+		assertFalse(someclosure.istable());
 	}
 
 	public void testIsUserdata() {
-		assertEquals( false, somenil.isuserdata() );
-		assertEquals( false, sometrue.isuserdata() );
-		assertEquals( false, somefalse.isuserdata() );
-		assertEquals( false, intint.isuserdata() );
-		assertEquals( false, longdouble.isuserdata() );
-		assertEquals( false, doubledouble.isuserdata() );
-		assertEquals( false, stringstring.isuserdata() );
-		assertEquals( false, stringint.isuserdata() );
-		assertEquals( false, stringdouble.isuserdata() );
-		assertEquals( false, thread.isuserdata() );
-		assertEquals( false, table.isuserdata() );
-		assertEquals( true, userdataobj.isuserdata() );
-		assertEquals( true, userdatacls.isuserdata() );
-		assertEquals( false, somefunc.isuserdata() );
-		assertEquals( false, someclosure.isuserdata() );
+		assertFalse(somenil.isuserdata());
+		assertFalse(sometrue.isuserdata());
+		assertFalse(somefalse.isuserdata());
+		assertFalse(intint.isuserdata());
+		assertFalse(longdouble.isuserdata());
+		assertFalse(doubledouble.isuserdata());
+		assertFalse(stringstring.isuserdata());
+		assertFalse(stringint.isuserdata());
+		assertFalse(stringdouble.isuserdata());
+		assertFalse(thread.isuserdata());
+		assertFalse(table.isuserdata());
+		assertTrue(userdataobj.isuserdata());
+		assertTrue(userdatacls.isuserdata());
+		assertFalse(somefunc.isuserdata());
+		assertFalse(someclosure.isuserdata());
 	}
 	
 	public void testIsUserdataObject() {
-		assertEquals( false, somenil.isuserdata(Object.class) );
-		assertEquals( false, sometrue.isuserdata(Object.class) );
-		assertEquals( false, somefalse.isuserdata(Object.class) );
-		assertEquals( false, longdouble.isuserdata(Object.class) );
-		assertEquals( false, doubledouble.isuserdata(Object.class) );
-		assertEquals( false, stringstring.isuserdata(Object.class) );
-		assertEquals( false, stringint.isuserdata(Object.class) );
-		assertEquals( false, stringdouble.isuserdata(Object.class) );
-		assertEquals( false, thread.isuserdata(Object.class) );
-		assertEquals( false, table.isuserdata(Object.class) );
-		assertEquals( true, userdataobj.isuserdata(Object.class) );
-		assertEquals( true, userdatacls.isuserdata(Object.class) );
-		assertEquals( false, somefunc.isuserdata(Object.class) );
-		assertEquals( false, someclosure.isuserdata(Object.class) );
+		assertFalse(somenil.isuserdata(Object.class));
+		assertFalse(sometrue.isuserdata(Object.class));
+		assertFalse(somefalse.isuserdata(Object.class));
+		assertFalse(longdouble.isuserdata(Object.class));
+		assertFalse(doubledouble.isuserdata(Object.class));
+		assertFalse(stringstring.isuserdata(Object.class));
+		assertFalse(stringint.isuserdata(Object.class));
+		assertFalse(stringdouble.isuserdata(Object.class));
+		assertFalse(thread.isuserdata(Object.class));
+		assertFalse(table.isuserdata(Object.class));
+		assertTrue(userdataobj.isuserdata(Object.class));
+		assertTrue(userdatacls.isuserdata(Object.class));
+		assertFalse(somefunc.isuserdata(Object.class));
+		assertFalse(someclosure.isuserdata(Object.class));
 	}
 	
 	public void testIsUserdataMyData() {
-		assertEquals( false, somenil.isuserdata(MyData.class) );
-		assertEquals( false, sometrue.isuserdata(MyData.class) );
-		assertEquals( false, somefalse.isuserdata(MyData.class) );
-		assertEquals( false, longdouble.isuserdata(MyData.class) );
-		assertEquals( false, doubledouble.isuserdata(MyData.class) );
-		assertEquals( false, stringstring.isuserdata(MyData.class) );
-		assertEquals( false, stringint.isuserdata(MyData.class) );
-		assertEquals( false, stringdouble.isuserdata(MyData.class) );
-		assertEquals( false, thread.isuserdata(MyData.class) );
-		assertEquals( false, table.isuserdata(MyData.class) );
-		assertEquals( false, userdataobj.isuserdata(MyData.class) );
-		assertEquals( true, userdatacls.isuserdata(MyData.class) );
-		assertEquals( false, somefunc.isuserdata(MyData.class) );
-		assertEquals( false, someclosure.isuserdata(MyData.class) );
+		assertFalse(somenil.isuserdata(MyData.class));
+		assertFalse(sometrue.isuserdata(MyData.class));
+		assertFalse(somefalse.isuserdata(MyData.class));
+		assertFalse(longdouble.isuserdata(MyData.class));
+		assertFalse(doubledouble.isuserdata(MyData.class));
+		assertFalse(stringstring.isuserdata(MyData.class));
+		assertFalse(stringint.isuserdata(MyData.class));
+		assertFalse(stringdouble.isuserdata(MyData.class));
+		assertFalse(thread.isuserdata(MyData.class));
+		assertFalse(table.isuserdata(MyData.class));
+		assertFalse(userdataobj.isuserdata(MyData.class));
+		assertTrue(userdatacls.isuserdata(MyData.class));
+		assertFalse(somefunc.isuserdata(MyData.class));
+		assertFalse(someclosure.isuserdata(MyData.class));
 	}
 	
 	
 	// ===================== Coerce to Java =======================
 	
 	public void testToBoolean() {
-		assertEquals( false, somenil.toboolean() );
-		assertEquals( true, sometrue.toboolean() );
-		assertEquals( false, somefalse.toboolean() );
-		assertEquals( true, zero.toboolean() );
-		assertEquals( true, intint.toboolean() );
-		assertEquals( true, longdouble.toboolean() );
-		assertEquals( true, doubledouble.toboolean() );
-		assertEquals( true, stringstring.toboolean() );
-		assertEquals( true, stringint.toboolean() );
-		assertEquals( true, stringlong.toboolean() );
-		assertEquals( true, stringdouble.toboolean() );
-		assertEquals( true, thread.toboolean() );
-		assertEquals( true, table.toboolean() );
-		assertEquals( true, userdataobj.toboolean() );
-		assertEquals( true, userdatacls.toboolean() );
-		assertEquals( true, somefunc.toboolean() );
-		assertEquals( true, someclosure.toboolean() );
+		assertFalse(somenil.toboolean());
+		assertTrue(sometrue.toboolean());
+		assertFalse(somefalse.toboolean());
+		assertTrue(zero.toboolean());
+		assertTrue(intint.toboolean());
+		assertTrue(longdouble.toboolean());
+		assertTrue(doubledouble.toboolean());
+		assertTrue(stringstring.toboolean());
+		assertTrue(stringint.toboolean());
+		assertTrue(stringlong.toboolean());
+		assertTrue(stringdouble.toboolean());
+		assertTrue(thread.toboolean());
+		assertTrue(table.toboolean());
+		assertTrue(userdataobj.toboolean());
+		assertTrue(userdatacls.toboolean());
+		assertTrue(somefunc.toboolean());
+		assertTrue(someclosure.toboolean());
 	}
 	
 	public void testToByte() {
@@ -519,23 +519,23 @@ public class TypeTest extends TestCase {
 	}
 	
 	public void testToUserdata() {
-		assertEquals( null, somenil.touserdata() );
-		assertEquals( null, somefalse.touserdata() );
-		assertEquals( null, sometrue.touserdata() );
-		assertEquals( null, zero.touserdata() );
-		assertEquals( null, intint.touserdata() );
-		assertEquals( null, longdouble.touserdata() );
-		assertEquals( null, doubledouble.touserdata() );
-		assertEquals( null, stringstring.touserdata() );
-		assertEquals( null, stringint.touserdata() );
-		assertEquals( null, stringlong.touserdata() );
-		assertEquals( null, stringdouble.touserdata() );
-		assertEquals( null, thread.touserdata() );
-		assertEquals( null, table.touserdata() );
+		assertNull(somenil.touserdata());
+		assertNull(somefalse.touserdata());
+		assertNull(sometrue.touserdata());
+		assertNull(zero.touserdata());
+		assertNull(intint.touserdata());
+		assertNull(longdouble.touserdata());
+		assertNull(doubledouble.touserdata());
+		assertNull(stringstring.touserdata());
+		assertNull(stringint.touserdata());
+		assertNull(stringlong.touserdata());
+		assertNull(stringdouble.touserdata());
+		assertNull(thread.touserdata());
+		assertNull(table.touserdata());
 		assertEquals( sampleobject, userdataobj.touserdata() );
 		assertEquals( sampledata, userdatacls.touserdata() );
-		assertEquals( null, somefunc.touserdata() );
-		assertEquals( null, someclosure.touserdata() );
+		assertNull(somefunc.touserdata());
+		assertNull(someclosure.touserdata());
 	}
 
 	
@@ -543,7 +543,7 @@ public class TypeTest extends TestCase {
 	// ===================== Optional argument conversion =======================
 
 
-	private void throwsError(LuaValue obj, String method, Class argtype, Object argument ) {
+	private void throwsError(LuaValue obj, String method, Class<?> argtype, Object argument ) {
 		try {
 			obj.getClass().getMethod(method,argtype).invoke(obj, argument );
 		} catch (InvocationTargetException e) {
@@ -557,10 +557,10 @@ public class TypeTest extends TestCase {
 	}
 
 	public void testOptBoolean() {
-		assertEquals( true, somenil.optboolean(true) );
-		assertEquals( false, somenil.optboolean(false) );
-		assertEquals( true, sometrue.optboolean(false) );
-		assertEquals( false, somefalse.optboolean(true) );
+		assertTrue(somenil.optboolean(true));
+		assertFalse(somenil.optboolean(false));
+		assertTrue(sometrue.optboolean(false));
+		assertFalse(somefalse.optboolean(true));
 		throwsError( zero, "optboolean", boolean.class, Boolean.FALSE );
 		throwsError( intint, "optboolean", boolean.class, Boolean.FALSE );
 		throwsError( longdouble, "optboolean", boolean.class, Boolean.FALSE );
@@ -579,7 +579,7 @@ public class TypeTest extends TestCase {
 
 	public void testOptClosure() {
 		assertEquals( someclosure, somenil.optclosure(someclosure) );
-		assertEquals( null, somenil.optclosure(null) );
+		assertNull(somenil.optclosure(null));
 		throwsError( sometrue, "optclosure", LuaClosure.class, someclosure );
 		throwsError( somefalse, "optclosure", LuaClosure.class, someclosure );
 		throwsError( zero, "optclosure", LuaClosure.class, someclosure );
@@ -621,7 +621,7 @@ public class TypeTest extends TestCase {
 
 	public void testOptFunction() {
 		assertEquals( somefunc, somenil.optfunction(somefunc) );
-		assertEquals( null, somenil.optfunction(null) );
+		assertNull(somenil.optfunction(null));
 		throwsError( sometrue, "optfunction", LuaFunction.class, somefunc );
 		throwsError( somefalse, "optfunction", LuaFunction.class, somefunc );
 		throwsError( zero, "optfunction", LuaFunction.class, somefunc );
@@ -644,22 +644,22 @@ public class TypeTest extends TestCase {
 
 	public void testOptInt() {
 		assertEquals( 33, somenil.optint(33) );
-		throwsError( sometrue, "optint", int.class, new Integer(33) );
-		throwsError( somefalse, "optint", int.class, new Integer(33) );
+		throwsError( sometrue, "optint", int.class, 33);
+		throwsError( somefalse, "optint", int.class, 33);
 		assertEquals( 0, zero.optint(33) );
 		assertEquals( sampleint, intint.optint(33) );
 		assertEquals( (int) samplelong, longdouble.optint(33) );
 		assertEquals( (int) sampledouble, doubledouble.optint(33) );
-		throwsError( somefunc, "optint", int.class, new Integer(33) );
-		throwsError( someclosure, "optint", int.class, new Integer(33) );
-		throwsError( stringstring, "optint", int.class, new Integer(33) );
+		throwsError( somefunc, "optint", int.class, 33);
+		throwsError( someclosure, "optint", int.class, 33);
+		throwsError( stringstring, "optint", int.class, 33);
 		assertEquals( sampleint, stringint.optint(33) );
 		assertEquals( (int) samplelong, stringlong.optint(33) );
 		assertEquals( (int) sampledouble, stringdouble.optint(33) );
-		throwsError( thread, "optint", int.class, new Integer(33) );
-		throwsError( table, "optint", int.class, new Integer(33) );
-		throwsError( userdataobj, "optint", int.class, new Integer(33) );
-		throwsError( userdatacls, "optint", int.class, new Integer(33) );
+		throwsError( thread, "optint", int.class, 33);
+		throwsError( table, "optint", int.class, 33);
+		throwsError( userdataobj, "optint", int.class, 33);
+		throwsError( userdatacls, "optint", int.class, 33);
 	}
 	
 	public void testOptInteger() {
@@ -683,23 +683,23 @@ public class TypeTest extends TestCase {
 	}
 
 	public void testOptLong() {
-		assertEquals( 33L, somenil.optlong(33) );
-		throwsError( sometrue, "optlong", long.class, new Long(33) );
-		throwsError( somefalse, "optlong", long.class, new Long(33) );
-		assertEquals( 0L, zero.optlong(33) );
-		assertEquals( sampleint, intint.optlong(33) );
-		assertEquals( (long) samplelong, longdouble.optlong(33) );
-		assertEquals( (long) sampledouble, doubledouble.optlong(33) );
-		throwsError( somefunc, "optlong", long.class, new Long(33) );
-		throwsError( someclosure, "optlong", long.class, new Long(33) );
-		throwsError( stringstring, "optlong", long.class, new Long(33) );
-		assertEquals( sampleint, stringint.optlong(33) );
-		assertEquals( (long) samplelong, stringlong.optlong(33) );
-		assertEquals( (long) sampledouble, stringdouble.optlong(33) );
-		throwsError( thread, "optlong", long.class, new Long(33) );
-		throwsError( table, "optlong", long.class, new Long(33) );
-		throwsError( userdataobj, "optlong", long.class, new Long(33) );
-		throwsError( userdatacls, "optlong", long.class, new Long(33) );
+		assertEquals( 33L, somenil.optlong(33L) );
+		throwsError( sometrue, "optlong", long.class, 33L);
+		throwsError( somefalse, "optlong", long.class,33L);
+		assertEquals( 0L, zero.optlong(33L) );
+		assertEquals( sampleint, intint.optlong(33L) );
+		assertEquals( (long) samplelong, longdouble.optlong(33L) );
+		assertEquals( (long) sampledouble, doubledouble.optlong(33L) );
+		throwsError( somefunc, "optlong", long.class, 33L);
+		throwsError( someclosure, "optlong", long.class, 33L);
+		throwsError( stringstring, "optlong", long.class, 33L);
+		assertEquals( sampleint, stringint.optlong(33L) );
+		assertEquals( (long) samplelong, stringlong.optlong(33L) );
+		assertEquals( (long) sampledouble, stringdouble.optlong(33L) );
+		throwsError( thread, "optlong", long.class, 33L);
+		throwsError( table, "optlong", long.class, 33L);
+		throwsError( userdataobj, "optlong", long.class, 33L);
+		throwsError( userdatacls, "optlong", long.class, 33L);
 	}
 	
 	public void testOptNumber() {
@@ -724,7 +724,7 @@ public class TypeTest extends TestCase {
 	
 	public void testOptTable() {
 		assertEquals( table, somenil.opttable(table) );
-		assertEquals( null, somenil.opttable(null) );
+		assertNull(somenil.opttable(null));
 		throwsError( sometrue, "opttable", LuaTable.class, table );
 		throwsError( somefalse, "opttable", LuaTable.class, table );
 		throwsError( zero, "opttable", LuaTable.class, table );
@@ -746,7 +746,7 @@ public class TypeTest extends TestCase {
 	
 	public void testOptThread() {
 		assertEquals( thread, somenil.optthread(thread) );
-		assertEquals( null, somenil.optthread(null) );
+		assertNull(somenil.optthread(null));
 		throwsError( sometrue, "optthread", LuaThread.class, thread );
 		throwsError( somefalse, "optthread", LuaThread.class, thread );
 		throwsError( zero, "optthread", LuaThread.class, thread );
@@ -768,7 +768,7 @@ public class TypeTest extends TestCase {
 	
 	public void testOptJavaString() {
 		assertEquals( "xyz", somenil.optjstring("xyz") );
-		assertEquals( null, somenil.optjstring(null) );
+		assertNull(somenil.optjstring(null));
 		throwsError( sometrue, "optjstring", String.class, "xyz" );
 		throwsError( somefalse, "optjstring", String.class, "xyz" );
 		assertEquals( String.valueOf(zero), zero.optjstring("xyz") );
@@ -789,7 +789,7 @@ public class TypeTest extends TestCase {
 	
 	public void testOptLuaString() {
 		assertEquals( LuaValue.valueOf("xyz"), somenil.optstring(LuaValue.valueOf("xyz")) );
-		assertEquals( null, somenil.optstring(null) );
+		assertNull(somenil.optstring(null));
 		throwsError( sometrue, "optstring", LuaString.class, LuaValue.valueOf("xyz") );
 		throwsError( somefalse, "optstring", LuaString.class, LuaValue.valueOf("xyz") );
 		assertEquals( LuaValue.valueOf("0"), zero.optstring(LuaValue.valueOf("xyz")) );
@@ -811,7 +811,7 @@ public class TypeTest extends TestCase {
 	public void testOptUserdata() {
 		assertEquals( sampleobject, somenil.optuserdata(sampleobject) );
 		assertEquals( sampledata, somenil.optuserdata(sampledata) );
-		assertEquals( null, somenil.optuserdata(null) );
+		assertNull(somenil.optuserdata(null));
 		throwsError( sometrue, "optuserdata", Object.class, sampledata );
 		throwsError( somefalse, "optuserdata", Object.class, sampledata );
 		throwsError( zero, "optuserdata", Object.class, sampledata );
@@ -831,7 +831,7 @@ public class TypeTest extends TestCase {
 		assertEquals( sampledata, userdatacls.optuserdata(null) );
 	}
 
-	private void throwsErrorOptUserdataClass(LuaValue obj, Class arg1, Object arg2 ) {
+	private void throwsErrorOptUserdataClass(LuaValue obj, Class<?> arg1, Object arg2 ) {
 		try {
 			obj.getClass().getMethod("optuserdata", Class.class, Object.class ).invoke(obj, arg1, arg2);
 		} catch (InvocationTargetException e) {
@@ -847,7 +847,7 @@ public class TypeTest extends TestCase {
 	public void testOptUserdataClass() {
 		assertEquals( sampledata, somenil.optuserdata(MyData.class, sampledata) );
 		assertEquals( sampleobject, somenil.optuserdata(Object.class, sampleobject) );
-		assertEquals( null, somenil.optuserdata(null) );
+		assertNull(somenil.optuserdata(null));
 		throwsErrorOptUserdataClass( sometrue,  Object.class, sampledata );
 		throwsErrorOptUserdataClass( zero,  MyData.class, sampledata);
 		throwsErrorOptUserdataClass( intint,  MyData.class, sampledata);
@@ -916,8 +916,8 @@ public class TypeTest extends TestCase {
 
 	public void testCheckBoolean() {
 		throwsErrorReq( somenil, "checkboolean" );
-		assertEquals( true, sometrue.checkboolean() );
-		assertEquals( false, somefalse.checkboolean() );
+		assertTrue(sometrue.checkboolean());
+		assertFalse(somefalse.checkboolean());
 		throwsErrorReq( zero, "checkboolean" );
 		throwsErrorReq( intint, "checkboolean" );
 		throwsErrorReq( longdouble, "checkboolean" );
@@ -1180,7 +1180,7 @@ public class TypeTest extends TestCase {
 		assertEquals( sampledata, userdatacls.checkuserdata() );
 	}
 
-	private void throwsErrorReqCheckUserdataClass(LuaValue obj, Class arg ) {
+	private void throwsErrorReqCheckUserdataClass(LuaValue obj, Class<?> arg ) {
 		try {
 			obj.getClass().getMethod("checkuserdata", Class.class ).invoke(obj, arg);
 		} catch (InvocationTargetException e) {

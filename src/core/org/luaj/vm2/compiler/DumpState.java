@@ -142,8 +142,7 @@ public class DumpState {
 		final int[] code = f.code;
 		int n = code.length;
 		dumpInt( n );
-		for ( int i=0; i<n; i++ )
-			dumpInt( code[i] );
+		for (int j : code) dumpInt(j);
 	}
 	
 	void dumpConstants(final Prototype f) throws IOException {
@@ -152,45 +151,41 @@ public class DumpState {
 		dumpInt(n);
 		for (i = 0; i < n; i++) {
 			final LuaValue o = k[i];
-			switch ( o.type() ) {
-			case LuaValue.TNIL:
-				writer.write(LuaValue.TNIL);
-				break;
-			case LuaValue.TBOOLEAN:
-				writer.write(LuaValue.TBOOLEAN);
-				dumpChar(o.toboolean() ? 1 : 0);
-				break;
-			case LuaValue.TNUMBER:
-				switch (NUMBER_FORMAT) {
-				case NUMBER_FORMAT_FLOATS_OR_DOUBLES:
-					writer.write(LuaValue.TNUMBER);
-					dumpDouble(o.todouble());
-					break;
-				case NUMBER_FORMAT_INTS_ONLY:
-					if ( ! ALLOW_INTEGER_CASTING && ! o.isint() )
-						throw new java.lang.IllegalArgumentException("not an integer: "+o);
-					writer.write(LuaValue.TNUMBER);
-					dumpInt(o.toint());
-					break;
-				case NUMBER_FORMAT_NUM_PATCH_INT32:
-					if ( o.isint() ) {
-						writer.write(LuaValue.TINT);
-						dumpInt(o.toint());
-					} else {
-						writer.write(LuaValue.TNUMBER);
-						dumpDouble(o.todouble());
-					}
-					break;
-				default:
-					throw new IllegalArgumentException("number format not supported: "+NUMBER_FORMAT);
+			switch (o.type()) {
+				case LuaValue.TNIL -> writer.write(LuaValue.TNIL);
+				case LuaValue.TBOOLEAN -> {
+					writer.write(LuaValue.TBOOLEAN);
+					dumpChar(o.toboolean() ? 1 : 0);
 				}
-				break;
-			case LuaValue.TSTRING:
-				writer.write(LuaValue.TSTRING);
-				dumpString((LuaString)o);
-				break;
-			default:
-				throw new IllegalArgumentException("bad type for " + o);
+				case LuaValue.TNUMBER -> {
+					switch (NUMBER_FORMAT) {
+						case NUMBER_FORMAT_FLOATS_OR_DOUBLES -> {
+							writer.write(LuaValue.TNUMBER);
+							dumpDouble(o.todouble());
+						}
+						case NUMBER_FORMAT_INTS_ONLY -> {
+							if (!ALLOW_INTEGER_CASTING && !o.isint())
+								throw new IllegalArgumentException("not an integer: " + o);
+							writer.write(LuaValue.TNUMBER);
+							dumpInt(o.toint());
+						}
+						case NUMBER_FORMAT_NUM_PATCH_INT32 -> {
+							if (o.isint()) {
+								writer.write(LuaValue.TINT);
+								dumpInt(o.toint());
+							} else {
+								writer.write(LuaValue.TNUMBER);
+								dumpDouble(o.todouble());
+							}
+						}
+						default -> throw new IllegalArgumentException("number format not supported: " + NUMBER_FORMAT);
+					}
+				}
+				case LuaValue.TSTRING -> {
+					writer.write(LuaValue.TSTRING);
+					dumpString((LuaString) o);
+				}
+				default -> throw new IllegalArgumentException("bad type for " + o);
 			}
 		}
 		n = f.p.length;
