@@ -38,7 +38,7 @@ public class LuaJavaCoercionTest extends TestCase {
 		assertEquals( 777, ((Number)o).intValue() );
 		o = CoerceLuaToJava.coerce(i, Integer.class);
 		assertEquals( Integer.class, o.getClass() );
-		assertEquals( new Integer(777), o );
+		assertEquals( 777, o );
 	}
 	
 	public void testJavaStringToLuaString() {
@@ -186,7 +186,7 @@ public class LuaJavaCoercionTest extends TestCase {
 	
 	public void testMatchIntArgs() {
 		LuaValue v = CoerceJavaToLua.coerce(new SampleClass());
-		LuaValue arg = CoerceJavaToLua.coerce(new Integer(123));
+		LuaValue arg = CoerceJavaToLua.coerce(123);
 		LuaValue result = v.method("sample",arg);
 		assertEquals( "int-args 123", result.toString() );
 	}

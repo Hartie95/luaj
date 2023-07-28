@@ -29,8 +29,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 
 import junit.framework.TestCase;
 
@@ -111,8 +111,6 @@ public class ScriptDrivenTest extends TestCase implements ResourceFinder {
 				URL url = new URL(path);
 				return url.openStream();
 	    	}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (FileNotFoundException e) {
 			// Ignore and return null.
 		} catch (IOException ioe) {
@@ -143,53 +141,45 @@ public class ScriptDrivenTest extends TestCase implements ResourceFinder {
 			final ByteArrayOutputStream output = new ByteArrayOutputStream();
 			final PrintStream oldps = globals.STDOUT;
 			final PrintStream ps = new PrintStream( output );
-			globals.STDOUT = ps;
-	
+
 			// run the script
-			try {
+			try (ps) {
+				globals.STDOUT = ps;
 				LuaValue chunk = loadScript(testName, globals);
 				chunk.call(LuaValue.valueOf(platform.toString()));
-	
+
 				ps.flush();
-				String actualOutput = new String(output.toByteArray());
+				String actualOutput = output.toString();
 				String expectedOutput = getExpectedOutput(testName);
 				actualOutput = actualOutput.replaceAll("\r\n", "\n");
 				expectedOutput = expectedOutput.replaceAll("\r\n", "\n");
-	
+
 				assertEquals(expectedOutput, actualOutput);
 			} finally {
 				globals.STDOUT = oldps;
-				ps.close();
 			}
-		} catch ( IOException ioe ) {
+		} catch (IOException | InterruptedException ioe ) {
 			throw new RuntimeException(ioe.toString());
-		} catch ( InterruptedException ie ) {
-			throw new RuntimeException(ie.toString());
 		}
 	}
 
 	protected LuaValue loadScript(String name, Globals globals) throws IOException {
 		InputStream script = this.findResource(name+".lua");
-		if ( script == null )
-			fail("Could not load script for test case: " + name);
-		try {
-			switch ( this.platform ) {
-			case LUAJIT:
-				if ( nocompile ) {
-					LuaValue c = (LuaValue) Class.forName(name).newInstance();
-					return c;
+		try (script) {
+			if (script == null)
+				fail("Could not load script for test case: " + name);
+			if (Objects.requireNonNull(this.platform) == PlatformType.LUAJIT) {
+				if (nocompile) {
+					return (LuaValue) Class.forName(name).getDeclaredConstructor().newInstance();
 				} else {
 					LuaJC.install(globals);
 					return globals.load(script, name, "bt", globals);
 				}
-			default:
-				return globals.load(script, "@"+name+".lua", "bt", globals);
 			}
-		} catch ( Exception e ) {
+			return globals.load(script, "@" + name + ".lua", "bt", globals);
+		} catch (Exception e) {
 			e.printStackTrace();
-			throw new IOException( e.toString() );
-		} finally {
-			script.close();
+			throw new IOException(e.toString());
 		}
 	}
 
@@ -210,16 +200,14 @@ public class ScriptDrivenTest extends TestCase implements ResourceFinder {
 
 	private String executeLuaProcess(String name) throws IOException, InterruptedException {
 		InputStream script = findResource(name+".lua");
-		if ( script == null )
-			throw new IOException("Failed to find source file "+script);
-		try {
-		    String luaCommand = System.getProperty("LUA_COMMAND");
-		    if ( luaCommand == null )
-		        luaCommand = "lua";
-		    String[] args = new String[] { luaCommand, "-", platform.toString() };
+		try (script) {
+			if (script == null)
+				throw new IOException("Failed to find source file " + script);
+			String luaCommand = System.getProperty("LUA_COMMAND");
+			if (luaCommand == null)
+				luaCommand = "lua";
+			String[] args = new String[]{luaCommand, "-", platform.toString()};
 			return collectProcessOutput(args, script);
-		} finally {
-			script.close();
 		}
 	}
 	
@@ -228,13 +216,13 @@ public class ScriptDrivenTest extends TestCase implements ResourceFinder {
 		Runtime r = Runtime.getRuntime();
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		new JseProcess(cmd, input, baos, System.err).waitFor();
-		return new String(baos.toByteArray());
+		return baos.toString();
 	}
 
 	private String readString(InputStream is) throws IOException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		copy(is, baos);
-		return new String(baos.toByteArray());
+		return baos.toString();
 	}
 
 	private static void copy(InputStream is, OutputStream os) throws IOException {

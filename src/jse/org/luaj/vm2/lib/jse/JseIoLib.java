@@ -1,16 +1,16 @@
 /*******************************************************************************
 * Copyright (c) 2009 Luaj.org. All rights reserved.
-*
+* <p>
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
-*
+* <p>
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
-* 
+* <p>
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -64,9 +64,7 @@ import org.luaj.vm2.lib.LibFunction;
  * This has been implemented to match as closely as possible the behavior in the corresponding library in C.
  * @see LibFunction
  * @see org.luaj.vm2.lib.jse.JsePlatform
- * @see org.luaj.vm2.lib.jme.JmePlatform
  * @see IoLib
- * @see org.luaj.vm2.lib.jme.JmeIoLib
  * @see <a href="http://www.lua.org/manual/5.2/manual.html#6.8">Lua 5.2 I/O Lib Reference</a>
  */
 public class JseIoLib extends IoLib {
