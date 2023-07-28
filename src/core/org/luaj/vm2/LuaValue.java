@@ -1423,7 +1423,7 @@ public class LuaValue extends Varargs {
      * @see #TSTRING
      */
     public String optjstring(String defval) {
-        argerror("String");
+        argerror("string");
         return null;
     }
 

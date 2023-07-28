@@ -18,6 +18,7 @@ tasks.test {
 sourceSets {
     main {
         java.setSrcDirs(listOf("src/core", "src/jse"))
+        resources.setSrcDirs(listOf("src/resources"))
     }
     test {
         java.setSrcDirs(listOf("test/junit", "test/java"))
