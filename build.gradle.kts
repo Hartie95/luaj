@@ -1,8 +1,9 @@
 plugins {
     id("java")
+    id("maven-publish")
 }
 
-group = "org.luaj"
+group = "org.anime_game_servers"
 version = "3.0.3"
 
 
@@ -34,3 +35,24 @@ dependencies {
 }
 
 // TODO handle examples
+
+publishing {
+    repositories {
+        maven {
+            name = "agsmvnrelease"
+            url = uri("https://mvn.animegameservers.org/releases")
+            credentials(PasswordCredentials::class)
+            authentication {
+                create<BasicAuthentication>("basic")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "org.anime_game_servers"
+            artifactId = "luaj"
+            version = version
+            from(components["java"])
+        }
+    }
+}
