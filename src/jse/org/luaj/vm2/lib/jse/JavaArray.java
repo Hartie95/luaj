@@ -40,7 +40,7 @@ import java.lang.reflect.Array;
  * @see CoerceJavaToLua
  * @see CoerceLuaToJava
  */
-class JavaArray extends LuaUserdata {
+public class JavaArray extends LuaUserdata {
 
     static final LuaValue LENGTH = valueOf("length");
     static final LuaTable array_metatable;
@@ -50,7 +50,7 @@ class JavaArray extends LuaUserdata {
         array_metatable.rawset(LuaValue.LEN, new LenFunction());
     }
 
-    JavaArray(Object instance) {
+    public JavaArray(Object instance) {
         super(instance);
         setmetatable(array_metatable);
     }

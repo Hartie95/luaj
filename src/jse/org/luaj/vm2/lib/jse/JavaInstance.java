@@ -39,11 +39,11 @@ import java.lang.reflect.Field;
  * @see CoerceJavaToLua
  * @see CoerceLuaToJava
  */
-class JavaInstance extends LuaUserdata {
+public class JavaInstance extends LuaUserdata {
 
     JavaClass jclass;
 
-    JavaInstance(Object instance) {
+    public JavaInstance(Object instance) {
         super(instance);
     }
 

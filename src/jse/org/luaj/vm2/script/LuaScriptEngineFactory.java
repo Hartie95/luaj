@@ -31,7 +31,7 @@ import javax.script.ScriptEngineFactory;
  * Jsr 223 scripting engine factory.
  * 
  * Exposes metadata to support the lua language, and constructs 
- * instances of LuaScriptEngine to handl lua scripts.
+ * instances of LuaScriptEngine to handle lua scripts.
  */
 public class LuaScriptEngineFactory implements ScriptEngineFactory {
     

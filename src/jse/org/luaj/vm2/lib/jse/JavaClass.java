@@ -42,9 +42,9 @@ import java.util.Map.Entry;
  * @see CoerceJavaToLua
  * @see CoerceLuaToJava
  */
-class JavaClass extends JavaInstance implements CoerceJavaToLua.Coercion {
+public class JavaClass extends JavaInstance implements CoerceJavaToLua.Coercion {
 
-    static final Map<Class<?>, JavaClass> classes = Collections.synchronizedMap(new HashMap<>());
+    protected static final Map<Class<?>, JavaClass> classes = Collections.synchronizedMap(new HashMap<>());
 
     static final LuaValue NEW = valueOf("new");
 
@@ -52,12 +52,12 @@ class JavaClass extends JavaInstance implements CoerceJavaToLua.Coercion {
     Map<LuaValue, LuaValue> methods;
     Map<LuaValue, Class<?>> innerclasses;
 
-    JavaClass(Class c) {
+    protected JavaClass(Class c) {
         super(c);
         this.jclass = this;
     }
 
-    static JavaClass forClass(Class<?> c) {
+    public static JavaClass forClass(Class<?> c) {
         JavaClass j = classes.get(c);
         if (j == null)
             classes.put(c, j = new JavaClass(c));
@@ -68,19 +68,23 @@ class JavaClass extends JavaInstance implements CoerceJavaToLua.Coercion {
         return this;
     }
 
-    Field getField(LuaValue key) {
+    protected void addField(Field fi, Map<LuaValue, Field> m){
+        if (Modifier.isPublic(fi.getModifiers())) {
+            m.put(LuaValue.valueOf(fi.getName()), fi);
+            try {
+                if (!fi.isAccessible())
+                    fi.setAccessible(true);
+            } catch (SecurityException s) {
+            }
+        }
+    }
+
+    public Field getField(LuaValue key) {
         if (fields == null) {
             Map<LuaValue, Field> m = new HashMap<>();
             Field[] f = ((Class<?>) m_instance).getFields();
             for (Field fi : f) {
-                if (Modifier.isPublic(fi.getModifiers())) {
-                    m.put(LuaValue.valueOf(fi.getName()), fi);
-                    try {
-                        if (!fi.isAccessible())
-                            fi.setAccessible(true);
-                    } catch (SecurityException s) {
-                    }
-                }
+                addField(fi, m);
             }
             fields = m;
         }
@@ -122,14 +126,14 @@ class JavaClass extends JavaInstance implements CoerceJavaToLua.Coercion {
         return map;
     }
 
-    LuaValue getMethod(LuaValue key) {
+    public LuaValue getMethod(LuaValue key) {
         if (methods == null) {
             methods = createMethodsMap();
         }
         return methods.get(key);
     }
 
-    Class<?> getInnerClass(LuaValue key) {
+    public Class<?> getInnerClass(LuaValue key) {
         if (innerclasses == null) {
             Map<LuaValue, Class<?>> m = new HashMap<>();
             Class<?>[] c = ((Class<?>) m_instance).getClasses();
