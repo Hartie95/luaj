@@ -29,6 +29,7 @@ import org.luaj.vm2.Varargs;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -118,33 +119,68 @@ class JavaMethod extends JavaMember {
      */
     static class Overload extends LuaFunction {
 
-        final JavaMethod[] methods;
+        final JavaMethod[] instanceMethods;
+        final JavaMethod[] staticMethods;
 
         Overload(JavaMethod[] methods) {
-            this.methods = methods;
+            this.staticMethods = Arrays.stream(methods).filter(m -> m.isstatic).toArray(JavaMethod[]::new);
+            this.instanceMethods = Arrays.stream(methods).filter(m -> !m.isstatic).toArray(JavaMethod[]::new);
         }
 
         public LuaValue call() {
-            return error("method cannot be called without instance");
+            return invokeBestMethod(LuaValue.NONE);
         }
 
         public LuaValue call(LuaValue arg) {
-            return invokeBestMethod(arg.checkuserdata(), LuaValue.NONE);
+            return invokeBestMethod(arg);
         }
 
         public LuaValue call(LuaValue arg1, LuaValue arg2) {
-            return invokeBestMethod(arg1.checkuserdata(), arg2);
+            return invokeBestMethod(LuaValue.varargsOf(arg1, arg2));
         }
 
         public LuaValue call(LuaValue arg1, LuaValue arg2, LuaValue arg3) {
-            return invokeBestMethod(arg1.checkuserdata(), LuaValue.varargsOf(arg2, arg3));
+            return invokeBestMethod(LuaValue.varargsOf(arg1, arg2, arg3));
         }
 
         public Varargs invoke(Varargs args) {
-            return invokeBestMethod(args.checkuserdata(1), args.subargs(2));
+            return invokeBestMethod(args);
         }
 
-        private LuaValue invokeBestMethod(Object instance, Varargs args) {
+        private LuaValue invokeBestMethod(Varargs args) {
+
+            JavaMethod bestStatic = null;
+            if (staticMethods.length > 0){
+                bestStatic = getBestMethod(staticMethods, args);
+            }
+            JavaMethod bestInstanced = null;
+            if (instanceMethods.length > 0){
+                bestInstanced = getBestMethod(instanceMethods, args.subargs(2));
+            }
+
+            if(bestStatic == null && bestInstanced == null){
+                LuaValue.error("no coercible method");
+            }
+
+            if(bestStatic != null && bestInstanced == null){
+                return bestStatic.invokeMethod(null, args);
+            } else if (bestInstanced != null && bestStatic == null){
+                return bestInstanced.invokeMethod(args.checkuserdata(1), args.subargs(2));
+            }
+
+            int scoreStatic = bestStatic.score(args);
+            int scoreInstanced = bestInstanced.score(args.subargs(2));
+            if(scoreStatic < scoreInstanced){
+                return bestInstanced.invokeMethod(args.checkuserdata(1), args.subargs(2));
+            } else {
+                return bestStatic.invokeMethod(null, args);
+            }
+        }
+
+        private JavaMethod getBestMethod(JavaMethod[] methods, Varargs args){
+            if (methods == null || methods.length == 0)
+                return null;
+
             JavaMethod best = null;
             int score = CoerceLuaToJava.SCORE_UNCOERCIBLE;
             for (JavaMethod javaMethod : methods) {
@@ -156,13 +192,7 @@ class JavaMethod extends JavaMember {
                         break;
                 }
             }
-
-            // any match?
-            if (best == null)
-                LuaValue.error("no coercible public method");
-
-            // invoke it
-            return best.invokeMethod(instance, args);
+            return best;
         }
     }
 

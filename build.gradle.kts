@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "org.anime_game_servers"
-version = "3.0.3"
+version = "3.0.4"
 
 
 repositories {
