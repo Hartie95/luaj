@@ -219,12 +219,12 @@ public class LuajavaClassMembersTest extends TestCase {
 		B b = new B();
 		JavaInstance ib = new JavaInstance(b);
 		LuaValue p = ib.get("staticpick");
-		assertEquals( "static-pick()",           p.call(SOMEB).tojstring() );
-		assertEquals( "static-pick(string:abc)", p.call(SOMEB,ABC).tojstring() );
-		assertEquals( "static-pick(int:1)",      p.call(SOMEB,ONE).tojstring() );
-		assertEquals( "static-pick(string:abc,int:1)", p.call(SOMEB,ABC,ONE).tojstring() );
-		assertEquals( "static-pick(int:1,string:abc)", p.call(SOMEB,ONE,ABC).tojstring() );
-		assertEquals( "static-pick(int:1,string:abc)", p.invoke(LuaValue.varargsOf(new LuaValue[] {SOMEB,ONE,ABC,ONE})).arg1().tojstring() );
+		assertEquals( "static-pick()",           p.call().tojstring() );
+		assertEquals( "static-pick(string:abc)", p.call(ABC).tojstring() );
+		assertEquals( "static-pick(int:1)",      p.call(ONE).tojstring() );
+		assertEquals( "static-pick(string:abc,int:1)", p.call(ABC,ONE).tojstring() );
+		assertEquals( "static-pick(int:1,string:abc)", p.call(ONE,ABC).tojstring() );
+		assertEquals( "static-pick(int:1,string:abc)", p.invoke(LuaValue.varargsOf(new LuaValue[] {ONE,ABC,ONE})).arg1().tojstring() );
 	}
 	public void testGetInnerClass() {
 		C c = new C();
