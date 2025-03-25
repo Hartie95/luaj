@@ -8,6 +8,7 @@ on:
       - "**.gradle"
       - "**.properties"
       - "**.kts"
+      - ".github/workflows/build.yml"
     branches:
       - "master"
       - "development"
@@ -47,7 +48,7 @@ jobs:
       - name: Build java
         run: ./gradlew && ./gradlew build
       - name: Upload jar
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: LuaJ
           path: build/libs/luaj-*.jar
